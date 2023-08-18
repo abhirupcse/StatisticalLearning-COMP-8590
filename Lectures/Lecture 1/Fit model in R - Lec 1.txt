@@ -1,0 +1,31 @@
+library(ggplot2)
+
+# Create the dataset
+library(ggplot2)
+
+# Create the dataset
+experience <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+salary <- c(45000, 50000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000)
+df <- data.frame(experience, salary)
+
+# Fit the linear model
+model <- lm(salary ~ experience, data = df)
+
+# View the model summary
+summary(model)
+
+# Plot the data and fitted model
+ggplot(df, aes(x = experience, y = salary)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Years of Experience", y = "Salary (USD)")
+
+
+
+#***************************************************************************
+
+# Predict salary for a new value of experience
+new_experience <- 11
+predicted_salary <- predict(model, newdata = data.frame(experience = new_experience))
+
+print(predicted_salary)

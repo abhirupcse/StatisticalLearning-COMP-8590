@@ -1,0 +1,44 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+# Sample data
+experience = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+salary = np.array([45000, 50000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000])
+
+# Reshape the arrays into the required format
+X = experience.reshape(-1, 1)  # Independent variable
+y = salary.reshape(-1, 1)  # Dependent variable
+
+# Create a linear regression object
+model = LinearRegression()
+
+# Fit the linear regression model
+model.fit(X, y)
+
+# Get the coefficient (slope) and intercept
+slope = model.coef_[0][0]
+intercept = model.intercept_[0]
+
+# Generate points for plotting the linear model
+x_plot = np.linspace(0, 11, 100).reshape(-1, 1)
+y_plot = model.predict(x_plot)
+
+# Make predictions on new data points
+X_new = np.array([[11], [12]])
+y_new = model.predict(X_new)
+
+# Print the predicted values for new data points
+print("Predicted values for new data points:")
+for i in range(len(X_new)):
+    print("Experience =", X_new[i][0], "  Predicted Salary =", y_new[i][0])
+
+# Plot the data points and the linear model
+plt.scatter(X, y, color='blue', label='Data')
+plt.plot(x_plot, y_plot, color='red', label='Linear Regression')
+plt.scatter(X_new, y_new, color='green', label='Predicted Values')
+plt.xlabel('Experience')
+plt.ylabel('Salary')
+plt.title('Linear Regression')
+plt.legend()
+plt.show()
